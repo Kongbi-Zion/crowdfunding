@@ -36,12 +36,3 @@ RUN apt-get -y install --fix-missing \
 RUN apt-get install -y libpq-dev \
     && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
     && docker-php-ext-install pdo pdo_pgsql pgsql
-
-# Copy the nginx configuration
-COPY docker/nginx/nginx.conf /etc/nginx/nginx.conf
-
-# Expose the port from the environment variable
-EXPOSE ${PORT}
-
-# Start Nginx and PHP-FPM
-CMD service nginx start && php-fpm
