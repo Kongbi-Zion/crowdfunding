@@ -21,12 +21,12 @@ services:
         ports:
             - "3306:3306"
         environment:
-            - MYSQL_DATABASE=laravel
-            - MYSQL_ALLOW_EMPTY_PASSWORD=true
+            - MYSQL_DATABASE=railway
+            - MYSQL_ROOT_PASSWORD=GEdjRYyRBpETKcfXqdCIICPvxXugGISF
 
     # Application Service
     app:
-        container_name: laravel
+        container_name: railway
         build:
             context: .
             dockerfile: Dockerfile
