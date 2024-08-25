@@ -10,10 +10,10 @@ services:
             - ./nginx/conf.d/:/etc/nginx/conf.d/
         depends_on:
             - app
-            - db
+            - mysql.railway.internal
 
     #Database Service
-    db:
+    mysql.railway.internal:
         image: mysql
         container_name: mysql
         volumes:
@@ -21,8 +21,8 @@ services:
         ports:
             - "3306:3306"
         environment:
-            - MYSQL_DATABASE=laravel
-            - MYSQL_ALLOW_EMPTY_PASSWORD=true
+            MYSQL_DATABASE: railway
+            MYSQL_ROOT_PASSWORD: GEdjRYyRBpETKcfXqdCIICPvxXugGISF
 
     # Application Service
     app:
@@ -43,4 +43,4 @@ services:
         ports:
             - "3400:80"
         depends_on:
-            - db
+            - mysql.railway.internal
