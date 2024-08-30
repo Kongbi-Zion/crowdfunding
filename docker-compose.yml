@@ -4,16 +4,16 @@ services:
         image: nginx:alpine
         container_name: nginx
         ports:
-            - "8080:80"
+            - "80:80"
         volumes:
-            - .:/var/www
+            - ./src:/var/www
             - ./nginx/conf.d/:/etc/nginx/conf.d/
         depends_on:
             - app
-            - mysql.railway.internal
+            - db
 
-    #Database Service
-    mysql.railway.internal:
+    #   Database Service
+    db:
         image: mysql
         container_name: mysql
         volumes:
@@ -21,17 +21,17 @@ services:
         ports:
             - "3306:3306"
         environment:
-            MYSQL_DATABASE: railway
-            MYSQL_ROOT_PASSWORD: GEdjRYyRBpETKcfXqdCIICPvxXugGISF
+            MYSQL_DATABASE: crowdfunding
+            MYSQL_ALLOW_EMPTY_PASSWORD: true
 
     # Application Service
     app:
-        container_name: laravel
+        container_name: crowdfunding
         build:
-            context: .
+            context: ./php
             dockerfile: Dockerfile
         volumes:
-            - .:/var/www
+            - ./src:/var/www
         ports:
             - "9000:9000"
         working_dir: /var/www
@@ -43,4 +43,4 @@ services:
         ports:
             - "3400:80"
         depends_on:
-            - mysql.railway.internal
+            - db

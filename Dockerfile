@@ -31,7 +31,7 @@ RUN apt-get -y install --fix-missing \
     libicu-dev \
     libonig-dev \
     libxml2-dev
-    
+
 # Install Postgre PDO
 RUN apt-get install -y libpq-dev \
     && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
